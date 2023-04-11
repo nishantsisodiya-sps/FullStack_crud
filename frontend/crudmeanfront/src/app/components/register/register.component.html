@@ -1,53 +1,70 @@
-<div class="up">
-    <div class="main">
-        <div class="tab-content">
-        <h3>Register</h3>
-            <div class="tab-pane fade show active" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                <form action="/register" method="post">
 
-                    <!-- Name input -->
-                    <div class="form-outline mb-4">
-                        <input type="text" id="registerName" class="form-control" name="firstName"/>
-                        <label class="form-label" for="registerName">First Name</label>
-                    </div>
+<div class="container-fluid">
+    <div class="row">
+        <!-- User registration form on the left side of the page -->
+        <div class="col-md-4" style="border-right: 2px solid black;">
+            <h2 style="color: red; text-align: center;">User Registration Form</h2>
+            <form [formGroup]="studentForm">
+              
+                <div class="form-outline mb-4">
+                    <input type="text" id="registerName" class="form-control" formControlName="firstname" name="firstName"/>
+                    <label class="form-label" for="registerName">First Name</label>
+                </div>
 
-                    <!-- Username input -->
-                    <div class="form-outline mb-4">
-                        <input type="text" id="registerLastName" class="form-control" name="LastName" />
-                        <label class="form-label" for="registerLastName">Last Name</label>
-                    </div>
+       
+                <div class="form-outline mb-4">
+                    <input type="text" id="registerLastName" class="form-control" formControlName="lastname" name="lastName" />
+                    <label class="form-label" for="registerLastName">Last Name</label>
+                </div>
 
-                    <!-- Email input -->
-                    <div class="form-outline mb-4">
-                        <input type="email" id="registerEmail" class="form-control" name="email"/>
-                        <label class="form-label" for="registerEmail">Email</label>
-                    </div>
+        
+                <div class="form-outline mb-4">
+                    <input type="email" id="registerEmail" class="form-control" formControlName="email" name="email"/>
+                    <label class="form-label" for="registerEmail">Email</label>
+                </div>
 
-                    <!-- Phone -->
-                    <div class="form-outline mb-4">
-                        <input type="number" id="registerPhone" class="form-control" name="phone"/>
-                        <label class="form-label" for="registerPhone">Phone</label>
-                    </div>
+  
+                <div class="form-outline mb-4">
+                    <input type="number" id="registerPhone" class="form-control" formControlName="phone" name="phone"/>
+                    <label class="form-label" for="registerPhone">Phone</label>
+                </div>
+                <button  class="btn btn-primary" (click)= "submits()" *ngIf="!update">Submit</button>
+                <button  class="btn btn-primary" (click)= "updated(this)" *ngIf="update">Update</button>
+            </form>
+        </div>
 
-                    <!-- Password input -->
-                    <div class="form-outline mb-4">
-                        <input type="password" id="registerPassword" class="form-control" name="password"/>
-                        <label class="form-label" for="registerPassword">Password</label>
-                    </div>
 
-                    <!-- Repeat Password input -->
-                    <div class="form-outline mb-4">
-                        <input type="password" id="registerRepeatPassword" class="form-control" name="repeatPassword"/>
-                        <label class="form-label" for="registerRepeatPassword">Repeat password</label>
-                    </div>
 
-                    <!-- Submit button -->
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary btn-block mb-3">Sign in</button>
-                    </div>
-
-                </form>
-            </div>
+        <!-- User details table on the right side of the page -->
+        <div class="col-md-8">
+            <h2 style="color: red; text-align: center;">User Details</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>S.no.</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of myusers let i = index" > 
+                    <td>{{i+1}}.</td>
+                    <td>{{item.firstname}}</td>
+                    <td>{{item.lastname}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>
+                       <div class="buttons">
+                           <button class="btn btn-primary" (click)="updateUser(this , i)">Update</button>
+                        <button class="btn btn-primary" (click)="deleteUser(this , i)">Delete</button>
+                       </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
