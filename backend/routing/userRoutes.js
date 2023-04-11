@@ -14,7 +14,7 @@ router.post('/user', async (req, res) => {
 
 
     } catch (error) {
-        console.log("post error");
+        console.log("post error" , error);
         console.log(error);
         res.status(400).send(error)
     }
@@ -27,7 +27,7 @@ router.get('/users', async (req, res) => {
         const getUsers = await user.find();
         res.send(getUsers)
     } catch (error) {
-        console.log("get user error");
+        console.log("get user error" , error);
         res.status(400).send(error)
     }
 })
@@ -40,7 +40,7 @@ router.delete('/users/:id' , async(req , res)=>{
         const deleteUser = await user.findByIdAndDelete(_id , req.body)
         res.send(deleteUser)
     } catch (error) {
-        console.log("delete user error");
+        console.log("delete user error" , error);
         res.status(400).send(error)
     }
 })
@@ -56,6 +56,35 @@ router.patch('/users/:id' , async(req,res)=>{
         res.send(updateUser)
     } catch (error) {
         console.log("update user error" , error)
+        res.status(400).send(error)
+    }
+})
+
+
+// ==============>>>> Authentication <<<<<===================
+
+
+router.post('/register' , async(req , res)=>{
+    try {
+        const password = req.body.password;
+        const Cpassword = req.body.Cpassword;
+
+        if(password === Cpassword){
+            const registerUser = new user({
+                name : req.body.name,
+                email : req.body.email,
+                password : req.body.email,
+                Cpassword : req.body.Cpassword
+            })
+            const registered = registerUser.save()
+
+        }else{
+            console.log("Password is not matching");
+        }
+
+
+    } catch (error) {
+        console.log("register user error" , error);
         res.status(400).send(error)
     }
 })
