@@ -52,7 +52,6 @@ authSchema.methods.generateAuthToken = async function(){
     }
 }
 
-
 // password hashing
 
 authSchema.pre("save" , async function (next){

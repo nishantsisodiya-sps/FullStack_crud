@@ -80,16 +80,17 @@ router.post('/register' , async(req , res)=>{
             })
             const token = await registerUser.generateAuthToken()
 
-            res.cookie('jwt' , token)
-
+            res.cookie('jwt', token , {               //saving the token into cookiesss
+                expires : new Date(Date.now() + 300000),
+                httpOnly : true                         
+             })  
+           
             const registered = await registerUser.save()
             res.status(201).end()
-            
 
         }else{
             console.log("Password is not matching");
         }
-
 
     } catch (error) {
         console.log("register user error" , error);
@@ -108,10 +109,12 @@ router.post('/login' , async(req , res)=>{
         const userEmail = await authUser.findOne({email : email});
         const isMatch = await bcrypt.compare(password , userEmail.password);
         const token = await userEmail.generateAuthToken()
+        
         res.cookie('jwt' , token , {
             expires : new Date(Date.now() + 300000),
             httpOnly : true
         })
+        
         console.log(cookie);
         if(isMatch){
             res.end()
@@ -124,7 +127,5 @@ router.post('/login' , async(req , res)=>{
         res.status(400).send("Invalid Login Details")
     }
 })
-
-
 
 module.exports = router;
