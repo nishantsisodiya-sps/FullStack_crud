@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
+import { signup } from 'src/app/service/int';
+
 
 @Component({
   selector: 'app-login',
@@ -9,17 +13,18 @@ import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm !: FormGroup
   signupForm !: FormGroup
-  constructor(private fb:FormBuilder) { 
+  signupdata : [] = []
+  constructor(private fb:FormBuilder , private Authapi : AuthService , private router : Router) { 
 
     this.loginForm = this.fb.group({
-      email : ['' , [Validators.required] , Validators.email],
+      email : ['' , [Validators.required]],
       password : ['' , [Validators.required]]
     })
 
 
     this.signupForm = this.fb.group({
       name : ['' , [Validators.required]],
-      email : ['' , [Validators.required] , Validators.email],
+      email : ['' , [Validators.required]],
       password : ['' , [Validators.required]],
       Cpassword : ['' , [Validators.required]]
     })
@@ -31,11 +36,13 @@ export class LoginComponent implements OnInit {
   }
 
   submitUser(){
-    console.log(this.signupForm.value);
+    let data = this.signupForm.value;
+    this.Authapi.signup(data)
   }
 
   loginUser(){
-    console.log(this.loginForm.value);
+    let data = this.loginForm.value;
+    this.Authapi.login(data)
   }
 
 }

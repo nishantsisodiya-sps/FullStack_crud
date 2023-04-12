@@ -12,7 +12,6 @@
                                 <div class="center-wrap">
                                     <div class="section text-center">
                                         <h4 class="mb-2 pb-3" style="color: white;">Log In</h4>
-
                                         <form [formGroup]="loginForm">
                                             <div class="form-group">
                                                 <input type="email" name="logemail" class="form-style"
@@ -24,11 +23,10 @@
                                                     placeholder="Your Password" id="logpass" autocomplete="off" formControlName="password">
                                                 <i class="input-icon uil uil-lock-alt"></i>
                                             </div>
-                                            <a href="#" class="btn mt-4" (click)="loginUser()">submit</a>
-                                            <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your
+                                            <a class="btn mt-4" (click)="loginUser()">submit</a>
+                                            <p class="mb-0 mt-4 text-center"><a class="link">Forgot your
                                                     password?</a></p>
                                         </form>
-
                                     </div>
                                 </div>
                             </div>
@@ -54,13 +52,12 @@
                                                 <i class="input-icon uil uil-lock-alt"></i>
                                             </div>
                                             <div class="form-group mt-2">
-                                                <input type="Cpassword" name="Cpassword" class="form-style"
+                                                <input type="password" name="Cpassword" class="form-style"
                                                     placeholder="Confirm Password" id="logCpass" autocomplete="off" formControlName="Cpassword">
                                                 <i class="input-icon uil uil-lock-alt"></i>
                                             </div>
-                                            <a href="#" class="btn mt-4" (click)="submitUser()">submit</a>
+                                            <a  class="btn mt-4" (click)="submitUser()">submit</a>
                                         </form>
-
                                     </div>
                                 </div>
                             </div>

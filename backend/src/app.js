@@ -5,6 +5,9 @@ const port = process.env.port || 4300;
 require('../db/connection')
 const userRoutes = require('../routing/userRoutes')
 let user = require('../model/register')
+let authUser = require('../model/signup')
+const cookie = require('cookie-parser')
+require('dotenv').config()
 
 app.use(cors());
 app.use(express.json());

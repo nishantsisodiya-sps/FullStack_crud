@@ -9,8 +9,8 @@ import { users } from './int';
 export class ApiService {
   constructor(private http : HttpClient) { }
 
-  createUser(data:any):Observable<any>{
-    return this.http.post<any>('http://localhost:4300/user' , data);
+  createUser(data:users):Observable<any>{
+    return this.http.post<users>('http://localhost:4300/user' , data);
   }
 
   getUser():Observable<any>{
@@ -21,7 +21,7 @@ export class ApiService {
     return this.http.delete(`http://localhost:4300/users/${id}`)
   }
 
-  updateUser(id:users , data:any):Observable<any>{
+  updateUser(id:users , data:users):Observable<any>{
     return this.http.patch(`http://localhost:4300/users/${id}` , data)
   }
 
