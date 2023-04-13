@@ -3,8 +3,8 @@ const user = require('../model/register');
 const router = new express.Router()
 const authUser = require('../model/signup')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const cookie = require('cookie-parser')
+
+
 
 // Post method ===========>>>>>>>>>
 
@@ -75,12 +75,12 @@ router.post('/register' , async(req , res)=>{
             const registerUser = new authUser({
                 name : req.body.name,
                 email : req.body.email,
-                password : req.body.password,
-                Cpassword : req.body.Cpassword
+                password : password,
+                Cpassword : Cpassword
             })
             const token = await registerUser.generateAuthToken()
 
-            res.cookie('jwt', token , {               //saving the token into cookiesss
+            res.cookie('cookie', token , {               //saving the token into cookiesss
                 expires : new Date(Date.now() + 300000),
                 httpOnly : true                         
              })  
@@ -110,12 +110,12 @@ router.post('/login' , async(req , res)=>{
         const isMatch = await bcrypt.compare(password , userEmail.password);
         const token = await userEmail.generateAuthToken()
         
-        res.cookie('jwt' , token , {
+        res.cookie('cookie' , token , {
             expires : new Date(Date.now() + 300000),
             httpOnly : true
         })
-        
         console.log(cookie);
+    
         if(isMatch){
             res.end()
         }else{
